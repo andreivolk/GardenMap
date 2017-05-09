@@ -1,0 +1,20 @@
+<div id="container"></div>
+<md-select placeholder="Shape" [(ngModel)]="shapeSelect">
+   <md-option *ngFor="let shape of shapes" [value]="shape.code">{{ shape.name }}</md-option>
+</md-select>
+<md-input-container *ngIf="shapeSelect == 'rec'">
+  <input mdInput placeholder="Width" [(ngModel)]="nWidth">
+</md-input-container>
+<md-input-container *ngIf="shapeSelect == 'rec'">
+  <input mdInput placeholder="Height" [(ngModel)]="nHeight">
+</md-input-container>
+<md-input-container *ngIf="shapeSelect == 'sqr'">
+  <input mdInput placeholder="Sides" [(ngModel)]="nWidth">
+</md-input-container>
+<md-input-container *ngIf="shapeSelect == 'cir'">
+  <input mdInput placeholder="Radius" [(ngModel)]="nRadius">
+</md-input-container>
+<md-input-container *ngIf="shapeSelect == 'hex'">
+  <input mdInput placeholder="Radius" [(ngModel)]="nRadius">
+</md-input-container>
+<button md-raised-button color="primary" (click)="newShape()">Click</button>
