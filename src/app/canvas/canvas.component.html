@@ -3,21 +3,21 @@
   <md-option *ngFor="let shape of shapes" [value]="shape.code">{{ shape.name }}</md-option>
 </md-select>
 <md-input-container *ngIf="shapeSelect == 'rec'">
-  <input mdInput placeholder="Width" [(ngModel)]="nWidth">
+  <input mdInput placeholder="Width ({{unitSelect}})" [(ngModel)]="nWidth">
 </md-input-container>
 <md-input-container *ngIf="shapeSelect == 'rec'">
-  <input mdInput placeholder="Height" [(ngModel)]="nHeight">
+  <input mdInput placeholder="Height ({{unitSelect}})" [(ngModel)]="nHeight">
 </md-input-container>
 <md-input-container *ngIf="shapeSelect == 'sqr'">
-  <input mdInput placeholder="Sides" [(ngModel)]="nWidth">
+  <input mdInput placeholder="Sides ({{unitSelect}})" [(ngModel)]="nHeight">
 </md-input-container>
 <md-input-container *ngIf="shapeSelect == 'cir'">
-  <input mdInput placeholder="Radius" [(ngModel)]="nRadius">
+  <input mdInput placeholder="Radius ({{unitSelect}})" [(ngModel)]="nRadius">
 </md-input-container>
 <md-input-container *ngIf="shapeSelect == 'hex'">
-  <input mdInput placeholder="Radius" [(ngModel)]="nRadius">
+  <input mdInput placeholder="Radius ({{unitSelect}})" [(ngModel)]="nRadius">
 </md-input-container>
 <button md-raised-button color="primary" (click)="newShape()">Add</button>
 <md-select placeholder="Units" [(ngModel)]="unitSelect">
-  <md-option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</md-option>
+  <md-option *ngFor="let unit of units" [value]="unit.unit">{{ unit.name }}</md-option>
 </md-select>
