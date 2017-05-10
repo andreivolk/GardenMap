@@ -24,7 +24,7 @@ const appRoutes: Routes = [
 ];
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp( new AuthConfig({}), http, options);
+  return new AuthHttp(new AuthConfig({}), http, options);
 }
 
 @NgModule({
@@ -47,7 +47,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
-      deps: [ Http, RequestOptions ]
+      deps: [Http, RequestOptions]
     }, Auth, AuthGuard],
   bootstrap: [AppComponent]
 })

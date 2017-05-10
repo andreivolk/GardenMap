@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 let Auth0Lock: any = require('auth0-lock').default;
 var logo = require("../logo.png");
 
-  var options = {
+var options = {
   theme: {
     logo: logo,
     primaryColor: '#673ab7'

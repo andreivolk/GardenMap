@@ -1,6 +1,6 @@
 <div id="container"></div>
 <md-select placeholder="Shape" [(ngModel)]="shapeSelect">
-   <md-option *ngFor="let shape of shapes" [value]="shape.code">{{ shape.name }}</md-option>
+  <md-option *ngFor="let shape of shapes" [value]="shape.code">{{ shape.name }}</md-option>
 </md-select>
 <md-input-container *ngIf="shapeSelect == 'rec'">
   <input mdInput placeholder="Width" [(ngModel)]="nWidth">
