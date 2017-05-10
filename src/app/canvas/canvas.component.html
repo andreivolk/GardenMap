@@ -18,3 +18,6 @@
   <input mdInput placeholder="Radius" [(ngModel)]="nRadius">
 </md-input-container>
 <button md-raised-button color="primary" (click)="newShape()">Add</button>
+<md-select placeholder="Units" [(ngModel)]="unitSelect">
+  <md-option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</md-option>
+</md-select>

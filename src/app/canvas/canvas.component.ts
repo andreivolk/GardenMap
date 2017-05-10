@@ -17,26 +17,41 @@ export class CanvasComponent implements OnInit {
     { code: 'rec', name: 'Rectangle' },
     { code: 'hex', name: 'Hexagon' }];
 
+  //Unit selector for measurements
+  unitSelect = 'met';
+  units = [{ code: 'met', name: 'Metric' },
+    { code: 'std', name: 'Standard' }];
+
+    /*Ratio setting based on average garden length of 30ft
+    and canvas size of 1500px.
+    Will be updated once gardens can be created by the user*/
+  public convertSize(value){
+      var ratio;
+      if(this.unitSelect == 'met'){ratio = 1500/9} //Meters
+      else{ratio = 1500/30} //Feet"
+    return value*ratio;
+    }
+
   public nHeight: number;
   public nWidth: number;
   public nRadius: number;
 
   /*Calculate X and Y limits because dragBoundFunc only takes
   top left corner into consideration*/
-  public xLimit(width,radius){
-    if(radius){
-      return width*1+20;
+  public xLimit(width, radius) {
+    if (radius) {
+      return width * 1 + 20;
     }
-    else{
-    return 1500-width-20;
+    else {
+      return 1500 - width - 20;
     }
   }
-  public yLimit(height,radius){
-    if(radius){
-      return height*1+20;
+  public yLimit(height, radius) {
+    if (radius) {
+      return height * 1 + 20;
     }
-    else{
-    return 600-height-20;
+    else {
+      return 600 - height - 20;
     }
   }
 
@@ -55,116 +70,116 @@ export class CanvasComponent implements OnInit {
     }
   }
   createRectangle() {
-    var xLimit = this.xLimit(this.nWidth,false);
-    var yLimit = this.yLimit(this.nHeight,false);
+    var xLimit = this.xLimit(this.convertSize(this.nWidth), false);
+    var yLimit = this.yLimit(this.convertSize(this.nHeight), false);
     var newBox = new Konva.Rect({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      width: this.nWidth,
-      height: this.nHeight,
+      width: this.convertSize(this.nWidth),
+      height: this.convertSize(this.nHeight),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
       draggable: true,
       dragBoundFunc: function(pos) {
-            var newY = pos.y;
-            var newX = pos.x;
-            if(newY<20){newY=20}
-            if(newY>yLimit){newY=yLimit}
-            if(newX<20){newX=20}
-            if(newX>xLimit){newX=xLimit}
-            return {
-                x: newX,
-                y: newY
-            };
-        }
+        var newY = pos.y;
+        var newX = pos.x;
+        if (newY < 20) { newY = 20 }
+        if (newY > yLimit) { newY = yLimit }
+        if (newX < 20) { newX = 20 }
+        if (newX > xLimit) { newX = xLimit }
+        return {
+          x: newX,
+          y: newY
+        };
+      }
     });
     layer.add(newBox);
     layer.draw();
   }
   createSquare() {
-    var xLimit = this.xLimit(this.nWidth,false);
-    var yLimit = this.yLimit(this.nWidth,false);
+    var xLimit = this.xLimit(this.convertSize(this.nWidth), false);
+    var yLimit = this.yLimit(this.convertSize(this.nWidth), false);
     var newBox = new Konva.Rect({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      width: this.nWidth,
-      height: this.nWidth,
+      width: this.convertSize(this.nWidth),
+      height: this.convertSize(this.nWidth),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
       draggable: true,
       dragBoundFunc: function(pos) {
-            var newY = pos.y;
-            var newX = pos.x;
-            if(newY<20){newY=20}
-            if(newY>yLimit){newY=yLimit}
-            if(newX<20){newX=20}
-            if(newX>xLimit){newX=xLimit}
-            return {
-                x: newX,
-                y: newY
-            };
-        }
+        var newY = pos.y;
+        var newX = pos.x;
+        if (newY < 20) { newY = 20 }
+        if (newY > yLimit) { newY = yLimit }
+        if (newX < 20) { newX = 20 }
+        if (newX > xLimit) { newX = xLimit }
+        return {
+          x: newX,
+          y: newY
+        };
+      }
     });
     layer.add(newBox);
     layer.draw();
   }
   createCircle() {
-    var xLimit = this.xLimit(this.nRadius,false);
-    var yLimit = this.yLimit(this.nRadius,false);
-    var xLimitLeft = this.xLimit(this.nRadius,true);
-    var yLimitTop = this.yLimit(this.nRadius,true);
+    var xLimit = this.xLimit(this.convertSize(this.nRadius), false);
+    var yLimit = this.yLimit(this.convertSize(this.nRadius), false);
+    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius), true);
+    var yLimitTop = this.yLimit(this.convertSize(this.nRadius), true);
     var newBox = new Konva.Circle({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      radius: this.nRadius,
+      radius: this.convertSize(this.nRadius),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
       draggable: true,
       dragBoundFunc: function(pos) {
-            var newY = pos.y;
-            var newX = pos.x;
-            if(newY<yLimitTop){newY=yLimitTop}
-            if(newY>yLimit){newY=yLimit}
-            if(newX<xLimitLeft){newX=xLimitLeft}
-            if(newX>xLimit){newX=xLimit}
-            return {
-                x: newX,
-                y: newY
-            };
-        }
+        var newY = pos.y;
+        var newX = pos.x;
+        if (newY < yLimitTop) { newY = yLimitTop }
+        if (newY > yLimit) { newY = yLimit }
+        if (newX < xLimitLeft) { newX = xLimitLeft }
+        if (newX > xLimit) { newX = xLimit }
+        return {
+          x: newX,
+          y: newY
+        };
+      }
     });
     layer.add(newBox);
     layer.draw();
   }
   createHexagon() {
-    var xLimit = this.xLimit(this.nRadius,false);
-    var yLimit = this.yLimit(this.nRadius,false);
-    var xLimitLeft = this.xLimit(this.nRadius,true);
-    var yLimitTop = this.yLimit(this.nRadius,true);
+    var xLimit = this.xLimit(this.convertSize(this.nRadius), false);
+    var yLimit = this.yLimit(this.convertSize(this.nRadius), false);
+    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius), true);
+    var yLimitTop = this.yLimit(this.convertSize(this.nRadius), true);
     var newBox = new Konva.RegularPolygon({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
       sides: 6,
-      radius: this.nRadius,
+      radius: this.convertSize(this.nRadius),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
       draggable: true,
       dragBoundFunc: function(pos) {
-            var newY = pos.y;
-            var newX = pos.x;
-            if(newY<yLimitTop){newY=yLimitTop}
-            if(newY>yLimit){newY=yLimit}
-            if(newX<xLimitLeft){newX=xLimitLeft}
-            if(newX>xLimit){newX=xLimit}
-            return {
-                x: newX,
-                y: newY
-            };
-        }
+        var newY = pos.y;
+        var newX = pos.x;
+        if (newY < yLimitTop) { newY = yLimitTop }
+        if (newY > yLimit) { newY = yLimit }
+        if (newX < xLimitLeft) { newX = xLimitLeft }
+        if (newX > xLimit) { newX = xLimit }
+        return {
+          x: newX,
+          y: newY
+        };
+      }
     });
     layer.add(newBox);
     layer.draw();
