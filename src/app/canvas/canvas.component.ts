@@ -46,7 +46,6 @@ export class CanvasComponent implements OnInit {
         default:
         convertedValue = value*ratio
       }
-      console.log('converted value: ' + convertedValue);
     return convertedValue;
     }
 
@@ -58,21 +57,17 @@ export class CanvasComponent implements OnInit {
   top left corner into consideration*/
   public xLimit(width, radius) {
     if (radius) {
-      console.log('x-limt: ' + (width * 1 + 20));
       return width * 1 + 20;
     }
     else {
-      console.log('x-limt: ' + (1500 - width - 20));
       return 1500 - width - 20;
     }
   }
   public yLimit(height, radius) {
     if (radius) {
-      console.log('y-limt: ' + (height * 1 + 20));
       return height * 1 + 20;
     }
     else {
-      console.log('y-limt: ' + (600 - height - 20));
       return 600 - height - 20;
     }
   }
