@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Konva from 'konva';
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-canvas',
@@ -8,7 +10,7 @@ import * as Konva from 'konva';
 })
 export class CanvasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   //Shape selector for creating new shapes
   shapeSelect = 'sqr';
@@ -22,32 +24,32 @@ export class CanvasComponent implements OnInit {
   units = [{ name: 'Metric', unit: 'Meters' },
     { name: 'Standard', unit: 'Feet' }];
 
-    /*Ratio setting based on average garden length of 30ft
-    and canvas size of 1500px.
-    Will be updated once gardens can be created by the user*/
-  public convertSize(value,type){
-      var ratio;
-      var convertedValue;
-      if(this.unitSelect == 'Meters'){ratio = 1500/9} //Meters
-      else if(this.unitSelect == 'Feet'){ratio = 1500/30} //Feet"
-      switch(type){
-        case "width":
-        if(value*ratio > 1500){convertedValue = 1400; this.nWidth = convertedValue/ratio}
-        else{convertedValue = value*ratio}
+  /*Ratio setting based on average garden length of 30ft
+  and canvas size of 1500px.
+  Will be updated once gardens can be created by the user*/
+  public convertSize(value, type) {
+    var ratio;
+    var convertedValue;
+    if (this.unitSelect == 'Meters') { ratio = 1500 / 9 } //Meters
+    else if (this.unitSelect == 'Feet') { ratio = 1500 / 30 } //Feet"
+    switch (type) {
+      case "width":
+        if (value * ratio > 1500) { convertedValue = 1400; this.nWidth = convertedValue / ratio }
+        else { convertedValue = value * ratio }
         break;
-        case "height":
-        if(value*ratio > 600){convertedValue = 500; this.nHeight = convertedValue/ratio}
-        else{convertedValue = value*ratio}
+      case "height":
+        if (value * ratio > 600) { convertedValue = 500; this.nHeight = convertedValue / ratio }
+        else { convertedValue = value * ratio }
         break;
-        case "radius":
-        if(value*ratio > 600){convertedValue = 250; this.nRadius = convertedValue/ratio}
-        else{convertedValue = value*ratio}
+      case "radius":
+        if (value * ratio > 600) { convertedValue = 250; this.nRadius = convertedValue / ratio }
+        else { convertedValue = value * ratio }
         break;
-        default:
-        convertedValue = value*ratio
-      }
-    return convertedValue;
+      default:
+        convertedValue = value * ratio
     }
+    return convertedValue;
+  }
 
   public nHeight: number;
   public nWidth: number;
@@ -87,13 +89,13 @@ export class CanvasComponent implements OnInit {
     }
   }
   createRectangle() {
-    var xLimit = this.xLimit(this.convertSize(this.nWidth,'width'), false);
-    var yLimit = this.yLimit(this.convertSize(this.nHeight,'height'), false);
+    var xLimit = this.xLimit(this.convertSize(this.nWidth, 'width'), false);
+    var yLimit = this.yLimit(this.convertSize(this.nHeight, 'height'), false);
     var newBox = new Konva.Rect({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      width: this.convertSize(this.nWidth,'width'),
-      height: this.convertSize(this.nHeight,'height'),
+      width: this.convertSize(this.nWidth, 'width'),
+      height: this.convertSize(this.nHeight, 'height'),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
@@ -115,13 +117,13 @@ export class CanvasComponent implements OnInit {
     layer.draw();
   }
   createSquare() {
-    var xLimit = this.xLimit(this.convertSize(this.nHeight,'height'), false);
-    var yLimit = this.yLimit(this.convertSize(this.nHeight,'height'), false);
+    var xLimit = this.xLimit(this.convertSize(this.nHeight, 'height'), false);
+    var yLimit = this.yLimit(this.convertSize(this.nHeight, 'height'), false);
     var newBox = new Konva.Rect({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      width: this.convertSize(this.nHeight,'height'),
-      height: this.convertSize(this.nHeight,'height'),
+      width: this.convertSize(this.nHeight, 'height'),
+      height: this.convertSize(this.nHeight, 'height'),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
@@ -143,14 +145,14 @@ export class CanvasComponent implements OnInit {
     layer.draw();
   }
   createCircle() {
-    var xLimit = this.xLimit(this.convertSize(this.nRadius,'radius'), false);
-    var yLimit = this.yLimit(this.convertSize(this.nRadius,'radius'), false);
-    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius,'radius'), true);
-    var yLimitTop = this.yLimit(this.convertSize(this.nRadius,'radius'), true);
+    var xLimit = this.xLimit(this.convertSize(this.nRadius, 'radius'), false);
+    var yLimit = this.yLimit(this.convertSize(this.nRadius, 'radius'), false);
+    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius, 'radius'), true);
+    var yLimitTop = this.yLimit(this.convertSize(this.nRadius, 'radius'), true);
     var newBox = new Konva.Circle({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
-      radius: this.convertSize(this.nRadius,'radius'),
+      radius: this.convertSize(this.nRadius, 'radius'),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
@@ -172,15 +174,15 @@ export class CanvasComponent implements OnInit {
     layer.draw();
   }
   createHexagon() {
-    var xLimit = this.xLimit(this.convertSize(this.nRadius,'radius'), false);
-    var yLimit = this.yLimit(this.convertSize(this.nRadius,'radius'), false);
-    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius,'radius'), true);
-    var yLimitTop = this.yLimit(this.convertSize(this.nRadius,'radius'), true);
+    var xLimit = this.xLimit(this.convertSize(this.nRadius, 'radius'), false);
+    var yLimit = this.yLimit(this.convertSize(this.nRadius, 'radius'), false);
+    var xLimitLeft = this.xLimit(this.convertSize(this.nRadius, 'radius'), true);
+    var yLimitTop = this.yLimit(this.convertSize(this.nRadius, 'radius'), true);
     var newBox = new Konva.RegularPolygon({
       x: Math.floor(Math.random() * (1180 - 100 + 1) + 100),
       y: Math.floor(Math.random() * (620 - 100 + 1) + 100),
       sides: 6,
-      radius: this.convertSize(this.nRadius,'radius'),
+      radius: this.convertSize(this.nRadius, 'radius'),
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
@@ -203,6 +205,7 @@ export class CanvasComponent implements OnInit {
   }
 
   ngOnInit() {
+    let id = +this.route.snapshot.params['id'];
     initialize();
   }
 }

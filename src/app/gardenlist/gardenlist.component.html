@@ -1,0 +1,9 @@
+<md-nav-list>
+  <a md-list-item [routerLink]="[link.href, link.id]" *ngFor="let link of links">
+    <md-icon md-list-icon>view_compact</md-icon> {{ link.link }} </a>
+</md-nav-list>
+<h3>Add new Garden</h3>
+<md-input-container>
+  <input mdInput placeholder="Garden Name" [(ngModel)]="gName">
+</md-input-container>
+<button md-mini-fab color="primary" (click)="newGarden()"><md-icon>create</md-icon></button>

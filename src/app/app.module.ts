@@ -15,10 +15,12 @@ import { CanvasComponent } from './canvas/canvas.component';
 import { Auth } from './auth0.service';
 import { NewsComponent } from './news/news.component';
 import { AuthGuard } from './auth.guard';
+import { GardenlistComponent } from './gardenlist/gardenlist.component';
 
 const appRoutes: Routes = [
   { path: 'news', component: NewsComponent },
-  { path: 'garden', component: CanvasComponent, canActivate: [AuthGuard] },
+  { path: 'gardenlist', component: GardenlistComponent, canActivate: [AuthGuard] },
+  { path: 'garden/:id', component: CanvasComponent, canActivate: [AuthGuard] },
   { path: '', component: NewsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -33,7 +35,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     PageNotFoundComponent,
     NavigationComponent,
     CanvasComponent,
-    NewsComponent
+    NewsComponent,
+    GardenlistComponent
   ],
   imports: [
     BrowserModule,
