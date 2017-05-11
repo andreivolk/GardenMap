@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, forwardRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,7 +12,8 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { CanvasComponent } from './canvas/canvas.component';
-import { Auth } from './auth0.service';
+import { Auth } from './services/auth0.service';
+import { UnitconversionService } from './services/unitconversion.service';
 import { NewsComponent } from './news/news.component';
 import { AuthGuard } from './auth.guard';
 import { GardenlistComponent } from './gardenlist/gardenlist.component';
@@ -51,7 +52,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
-    }, Auth, AuthGuard],
+    }, Auth, AuthGuard, UnitconversionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,11 +2,11 @@
 
 import { Injectable }      from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 // Avoid name not found warnings
 let Auth0Lock: any = require('auth0-lock').default;
-var logo = require("../logo.png");
+var logo = '../../assets/images/logo.png';
 
 var options = {
   theme: {
