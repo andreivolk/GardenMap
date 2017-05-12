@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, forwardRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Konva from 'konva';
-import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
 import { UnitconversionService } from '../services/unitconversion.service';
 
 @Component({
@@ -11,7 +11,21 @@ import { UnitconversionService } from '../services/unitconversion.service';
 })
 export class GardenComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private conversion: UnitconversionService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private conversion: UnitconversionService) { }
+
+  public layer = new Konva.Layer();
+
+  public stage;
+
+  public initialize() {
+    this.stage = new Konva.Stage({
+      container: 'container',
+      width: 1500,
+      height: 600
+    });
+    this.stage.add(this.layer);
+    this.layer.draw();
+  }
 
   //Shape selector for creating new shapes
   shapeSelect = 'sqr';
@@ -78,6 +92,7 @@ export class GardenComponent implements OnInit {
       fill: '#FFFFFF',
       stroke: 'black',
       strokeWidth: 4,
+      name : 'testbox',
       draggable: true,
       dragBoundFunc: function(pos) {
         var newY = pos.y;
@@ -92,8 +107,8 @@ export class GardenComponent implements OnInit {
         };
       }
     });
-    layer.add(newBox);
-    layer.draw();
+    this.layer.add(newBox);
+    this.layer.draw();
     this.resetNumbers();
   }
   createSquare() {
@@ -121,8 +136,8 @@ export class GardenComponent implements OnInit {
         };
       }
     });
-    layer.add(newBox);
-    layer.draw();
+    this.layer.add(newBox);
+    this.layer.draw();
     this.resetNumbers();
   }
   createCircle() {
@@ -151,8 +166,8 @@ export class GardenComponent implements OnInit {
         };
       }
     });
-    layer.add(newBox);
-    layer.draw();
+    this.layer.add(newBox);
+    this.layer.draw();
     this.resetNumbers();
   }
   createHexagon() {
@@ -182,27 +197,21 @@ export class GardenComponent implements OnInit {
         };
       }
     });
-    layer.add(newBox);
-    layer.draw();
+    this.layer.add(newBox);
+    this.layer.draw();
     this.resetNumbers();
   }
 
   ngOnInit() {
     let id = +this.route.snapshot.params['id'];
-    initialize();
+    this.initialize();
   }
-}
+  ngAfterViewInit(){
+      /*Let anonymous function access the router*/
+      var self = this;
 
-var layer = new Konva.Layer();
-
-var stage;
-
-function initialize() {
-  stage = new Konva.Stage({
-    container: 'container',
-    width: 1500,
-    height: 600
-  });
-  stage.add(layer);
-  layer.draw();
+      this.layer.on("click", function(e) {
+            self.router.navigate(['/bed', e.target.name()]);
+         });
+  }
 }

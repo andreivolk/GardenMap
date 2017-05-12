@@ -17,11 +17,13 @@ import { UnitconversionService } from './services/unitconversion.service';
 import { NewsComponent } from './news/news.component';
 import { AuthGuard } from './auth.guard';
 import { GardenlistComponent } from './gardenlist/gardenlist.component';
+import { BedComponent } from './bed/bed.component';
 
 const appRoutes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'gardenlist', component: GardenlistComponent, canActivate: [AuthGuard] },
   { path: 'garden/:id', component: GardenComponent, canActivate: [AuthGuard] },
+  { path: 'bed/:id', component: BedComponent, canActivate: [AuthGuard] },
   { path: '', component: NewsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -37,7 +39,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     NavigationComponent,
     GardenComponent,
     NewsComponent,
-    GardenlistComponent
+    GardenlistComponent,
+    BedComponent
   ],
   imports: [
     BrowserModule,
