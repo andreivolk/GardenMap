@@ -11,7 +11,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { CanvasComponent } from './canvas/canvas.component';
+import { GardenComponent } from './garden/garden.component';
 import { Auth } from './services/auth0.service';
 import { UnitconversionService } from './services/unitconversion.service';
 import { NewsComponent } from './news/news.component';
@@ -21,7 +21,7 @@ import { GardenlistComponent } from './gardenlist/gardenlist.component';
 const appRoutes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'gardenlist', component: GardenlistComponent, canActivate: [AuthGuard] },
-  { path: 'garden/:id', component: CanvasComponent, canActivate: [AuthGuard] },
+  { path: 'garden/:id', component: GardenComponent, canActivate: [AuthGuard] },
   { path: '', component: NewsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -35,7 +35,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AppComponent,
     PageNotFoundComponent,
     NavigationComponent,
-    CanvasComponent,
+    GardenComponent,
     NewsComponent,
     GardenlistComponent
   ],

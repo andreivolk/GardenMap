@@ -5,11 +5,11 @@ import { UnitconversionService } from '../services/unitconversion.service';
 
 @Component({
   selector: 'app-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.css'],
+  templateUrl: './garden.component.html',
+  styleUrls: ['./garden.component.css'],
   providers: [UnitconversionService]
 })
-export class CanvasComponent implements OnInit {
+export class GardenComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private conversion: UnitconversionService) { }
 
