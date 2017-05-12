@@ -11,6 +11,20 @@ export class BedComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
+  public layer = new Konva.Layer();
+
+  public stage;
+
+  initialize() {
+    this.stage = new Konva.Stage({
+      container: 'container',
+      width: 1500,
+      height: 600
+    });
+    this.stage.add(this.layer);
+    this.layer.draw();
+  }
+
   /*We want the bed to take up almost all of the canvas space
   these values will be set to 90-95% of canvas size when complete*/
   private maxHeight: number = 550;
@@ -20,6 +34,17 @@ export class BedComponent implements OnInit {
   based on the type*/
   private maxHeightArray = ['sqr', 'cir', 'hex'];
   private maxWidthArray = ['rec'];
+
+  produceSelect;
+  private produce = [{ name: 'Tomato', image: '../../assets/images/produce/tomato.png' },
+    { name: 'Cucumber', image: '../../assets/images/produce/cucumber.png' },
+    { name: 'Onion', image: '../../assets/images/produce/onion.png' },
+    { name: 'Eggplant', image: '../../assets/images/produce/eggplant.png' }]
+
+  private getImage() {
+    var imageElement = this.produce.find(x => x.name === this.produceSelect);
+    return imageElement.image;
+  }
 
   /*Test method in absence of backend to retrieve bed details*/
   private createRectangle() {
@@ -33,28 +58,49 @@ export class BedComponent implements OnInit {
       strokeWidth: 4,
       draggable: false
     });
-    layer.add(newBox);
-    layer.draw();
+    this.layer.add(newBox);
+    this.layer.draw();
+  }
+  /*Create a group to represent the plant with icon and radius around it
+  to see any potential conflicts*/
+  addProduce() {
+    var group = new Konva.Group({
+      x: this.maxWidth / 2,
+      y: this.maxHeight / 2,
+      draggable: true
+    });
+
+    var rootRadius = new Konva.Circle({
+      x: this.maxWidth / 2,
+      y: this.maxHeight / 2,
+      radius: 150,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 1,
+      opacity: 0.3
+    });
+    group.add(rootRadius);
+
+    var imageObj = new Image();
+    imageObj.src = this.getImage();
+
+    var plantImage = new Konva.Image({
+      x: this.maxWidth / 2 - 40,
+      y: this.maxHeight / 2 - 40,
+      width: 75,
+      height: 75,
+      image: imageObj
+    });
+    group.add(plantImage);
+
+    this.layer.add(group);
+    this.layer.draw();
   }
 
   ngOnInit() {
     let id = +this.route.snapshot.params['id'];
-    initialize();
+    this.initialize();
     this.createRectangle();
   }
 
-}
-
-var layer = new Konva.Layer();
-
-var stage;
-
-function initialize() {
-  stage = new Konva.Stage({
-    container: 'container',
-    width: 1500,
-    height: 600
-  });
-  stage.add(layer);
-  layer.draw();
 }

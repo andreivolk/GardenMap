@@ -1,1 +1,5 @@
 <div id="container"></div>
+<md-select placeholder="Produce" [(ngModel)]="produceSelect">
+  <md-option *ngFor="let prod of produce" [value]="prod.name"><img src="{{ prod.image }}" height="20px" width="20px"/>  {{ prod.name }}</md-option>
+</md-select>
+<button md-raised-button color="primary" (click)="addProduce()">Add</button>
